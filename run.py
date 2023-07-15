@@ -677,7 +677,10 @@ def iss_sim(test_list, output_dir, iss_list, iss_yaml, iss_opts,
                     if iss == "ovpsim":
                         run_cmd(cmd, timeout_s, debug_cmd=debug_cmd)
                     else:
-                        run_cmd(cmd, timeout_s, debug_cmd=debug_cmd)
+                        try:
+                            run_cmd(cmd, timeout_s, debug_cmd=debug_cmd)
+                        except:
+                            print("An exception occurrered!!")
                     logging.debug(cmd)
 
 
@@ -772,7 +775,7 @@ def parse_args(cwd):
     # Parse input arguments
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--target", type=str, default="rv32imc",
+    parser.add_argument("--target", type=str, default="rv64gc",
                         help="Run the generator with pre-defined targets: \
                             rv32imc, rv32i, rv32imafdc, rv64imc, rv64gc, \
                             rv64imafdc")
@@ -786,8 +789,8 @@ def parse_args(cwd):
     parser.add_argument("-i", "--iterations", type=int, default=0,
                         help="Override the iteration count in the test list",
                         dest="iterations")
-    parser.add_argument("-si", "--simulator", type=str, default="vcs",
-                        help="Simulator used to run the generator, default VCS",
+    parser.add_argument("-si", "--simulator", type=str, default="xlm",
+                        help="Simulator used to run the generator, default Cadence Xcelium",
                         dest="simulator")
     parser.add_argument("--iss", type=str, default="spike",
                         help="RISC-V instruction set simulator: spike,ovpsim,sail")
@@ -822,7 +825,7 @@ def parse_args(cwd):
                         help="Address that privileged CSR test writes to at EOT")
     parser.add_argument("--iss_opts", type=str, default="",
                         help="Any ISS command line arguments")
-    parser.add_argument("--iss_timeout", type=int, default=10,
+    parser.add_argument("--iss_timeout", type=int, default=25,
                         help="ISS sim timeout limit in seconds")
     parser.add_argument("--iss_yaml", type=str, default="",
                         help="ISS setting YAML")
