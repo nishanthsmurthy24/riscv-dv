@@ -247,12 +247,12 @@ def setup_parser():
     parser.add_argument("--lsf_cmd", type=str, default="",
                         help="LSF command. Run in local sequentially if lsf \
                             command is not specified")
-    parser.add_argument("--target", type=str, default="rv32imc",
+    parser.add_argument("--target", type=str, default="rv64gc",
                         help="Run the generator with pre-defined targets: \
                             rv32imc, rv32i, rv64imc, rv64gc")
-    parser.add_argument("-si", "--simulator", type=str, default="vcs",
+    parser.add_argument("-si", "--simulator", type=str, default="xlm",
                         help="Simulator used to run the generator, \
-                            default VCS", dest="simulator")
+                            default Cadence Xcelium", dest="simulator")
     parser.add_argument("--simulator_yaml", type=str, default="",
                         help="RTL simulator setting YAML")
     parser.add_argument("-ct", "--custom_target", type=str, default="",
